@@ -26,6 +26,7 @@ import 'Page__Sefaresh_Sayer.dart';
 import 'UpdateList.dart';
 import 'Page__Pishnahad_Vizhe.dart';
 import 'Page__Zivar_Alat.dart';
+import 'Page__Users_kalas.dart';
 
 bool to_comments = false;
 
@@ -51,6 +52,7 @@ String pooshak_zanane_getall_url = "/kala/pooshak_zanane/getall";
 String pooshak_pesarane_getall_url = "/kala/pooshak_pesarane/getall";
 String pooshak_dokhtarane_getall_url = "/kala/pooshak_dokhtarane/getall";
 String pooshak_nozadi_getall_url = "/kala/pooshak_nozadi/getall";
+String users_kalas_getall_url = "/kala/users_kalas/getall";
 String pooshak_getall_url = "/kala/pooshak/getall";
 String pishnahad_vizhe_getall_url = "/kala/pishnahad_vizhe/getall";
 String zivar_alat_getall_url = "/kala/zivar_alat/getall";
@@ -107,6 +109,10 @@ List<ShopBagList> shopbagitems = [];
 List<ItemsList> pishnahad_vizhe_items = [
   ItemsList("پیشنهاد ویژه", "", "http://193.176.243.61/media/efrfvjkndz.jpg",
       Page__Pishnahad_Vizhe())
+];
+List<ItemsList> users_kalas_items = [
+  ItemsList("بازار کاربران", "", "http://193.176.243.61/media/Icon%20Ok-28.png",
+      Page__Users_kalas())
 ];
 List<ItemsList> sanaye_dasti_items = [
   ItemsList(

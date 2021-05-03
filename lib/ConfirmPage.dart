@@ -69,11 +69,13 @@ class _ConfirmPageState extends State<ConfirmPage> {
           // _showError(context);
           SignupError(
               context, "این نام کاربری قبلا توسط کسی استفاده شده است.", "باشه");
+          Navigator.pop(context);
         }
         if (jsonDecode(response.body)['result'] == 'repetitious phonenumber') {
           // _showError(context);
           SignupError(
               context, "این شماره تلفن قبلا توسط کسی استفاده شده است.", "باشه");
+          Navigator.pop(context);
         }
       } else {
         Navigator.of(context)
@@ -85,10 +87,12 @@ class _ConfirmPageState extends State<ConfirmPage> {
   }
 
   void send_confirm_number(confirm_number) async {
-    var url = Uri.http('193.176.243.61', 'sendsms/index.php');
+    var url = Uri.http('193.176.243.61:8080', 'send_verify_code');
     var text = "کد تایید شما : " + confirm_number.toString();
-    Response response =
-        await post(url, body: {'text': text, 'tonumbers': globals.phonenumber});
+    Response response = await post(url, body: {
+      'code': confirm_number.toString(),
+      'phone': globals.phonenumber
+    });
     print(response.body);
   }
 
@@ -107,11 +111,23 @@ class _ConfirmPageState extends State<ConfirmPage> {
     // ConfirmNumber = random.nextInt(999999);
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-            "تایید حساب کاربری",
-            style: TextStyle(color: Colors.black, fontFamily: 'Vazir'),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Image.network(
+                "http://193.176.243.61/media/photo_2021-04-23_01-16-09.jpg",
+                width: 70,
+              ),
+              Text(
+                "تایید حساب کاربری",
+                style: TextStyle(color: Colors.black, fontFamily: 'Vazir'),
+              ),
+              Image.network(
+                "http://193.176.243.61/media/photo_2021-04-23_01-16-14.jpg",
+                width: 70,
+              ),
+            ],
           ),
-          centerTitle: true,
           backgroundColor: Colors.white,
           elevation: 2,
           leading: Icon(Icons.add),

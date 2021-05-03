@@ -327,11 +327,23 @@ class _Page__DiscriptionSefareshState extends State<Page__DiscriptionSefaresh> {
     var all_num = 0;
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "سرای مریم",
-          style: TextStyle(color: Colors.black, fontFamily: 'Vazir'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Image.network(
+              "http://193.176.243.61/media/photo_2021-04-23_01-16-09.jpg",
+              width: 70,
+            ),
+            Text(
+              "سرای مریم",
+              style: TextStyle(color: Colors.black, fontFamily: 'Vazir'),
+            ),
+            Image.network(
+              "http://193.176.243.61/media/photo_2021-04-23_01-16-14.jpg",
+              width: 70,
+            ),
+          ],
         ),
-        centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           color: Colors.black87,
@@ -414,32 +426,28 @@ class _Page__DiscriptionSefareshState extends State<Page__DiscriptionSefaresh> {
                     InkWell(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                ImageView(product.img.toString())));
+                            builder: (context) => ImageView(product, 0)));
                       },
                       child: Image.network(product.img),
                     ),
                     InkWell(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                ImageView(product.img2.toString())));
+                            builder: (context) => ImageView(product, 1)));
                       },
                       child: Image.network(product.img2),
                     ),
                     InkWell(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                ImageView(product.img3.toString())));
+                            builder: (context) => ImageView(product, 2)));
                       },
                       child: Image.network(product.img3),
                     ),
                     InkWell(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                ImageView(product.img4.toString())));
+                            builder: (context) => ImageView(product, 3)));
                       },
                       child: Image.network(product.img4),
                     ),

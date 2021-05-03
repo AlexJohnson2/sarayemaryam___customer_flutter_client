@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'globals.dart' as globals;
+import 'package:url_launcher/url_launcher.dart';
 import 'Product.dart';
 import 'StoreTab.dart';
 import 'Page__Pooshak_mardane.dart';
@@ -18,20 +19,21 @@ import 'ImageView.dart';
 
 enum color_value { red }
 
-class Page__Discription extends StatefulWidget {
+class Page__DiscriptionUsersKalas extends StatefulWidget {
   Product product;
   List colors_values;
-  Page__Discription(this.product, this.colors_values);
+  Page__DiscriptionUsersKalas(this.product, this.colors_values);
   @override
-  _Page__DiscriptionState createState() =>
-      _Page__DiscriptionState(this.product, this.colors_values);
+  _Page__DiscriptionUsersKalasState createState() =>
+      _Page__DiscriptionUsersKalasState(this.product, this.colors_values);
 }
 
-class _Page__DiscriptionState extends State<Page__Discription> {
+class _Page__DiscriptionUsersKalasState
+    extends State<Page__DiscriptionUsersKalas> {
   var back_page;
   Product product;
   List colors_values;
-  _Page__DiscriptionState(this.product, this.colors_values);
+  _Page__DiscriptionUsersKalasState(this.product, this.colors_values);
 
   Future<void> ShowMessage(context, title, text) async {
     return showDialog<void>(
@@ -72,8 +74,7 @@ class _Page__DiscriptionState extends State<Page__Discription> {
     );
   }
 
-  void add_to_cart(
-      name, amount, text, img, id, num, old_num, img2, img3, img4) async {
+  void add_to_cart(name, amount, text, img, id, num, old_num) async {
     print(selected);
     print(selectedSize);
     if (selected == "") {
@@ -95,9 +96,6 @@ class _Page__DiscriptionState extends State<Page__Discription> {
             "amount": amount,
             "text": text,
             "img": img,
-            "img2": img2,
-            "img3": img3,
-            "img4": img4,
             "num": num,
             "this_id": id,
             "old_num": old_num.toString(),
@@ -124,9 +122,6 @@ class _Page__DiscriptionState extends State<Page__Discription> {
           "amount": amount,
           "text": text,
           "img": img,
-          "img2": img2,
-          "img3": img3,
-          "img4": img4,
           "num": num,
           "this_id": id,
           "old_num": old_num.toString(),
@@ -214,7 +209,7 @@ class _Page__DiscriptionState extends State<Page__Discription> {
       if (i["color"] == selected) {
         for (var j in i["size"]) {
           setState(() {
-            if (j['num'] == "0") {
+            if (j['num'] != "0") {
             } else {
               sizes.add(j["size"]);
             }
@@ -238,24 +233,15 @@ class _Page__DiscriptionState extends State<Page__Discription> {
   }
 
   void button_on_tap() {
-    if (product.num == "0") {
+    if (product.num != "0") {
       if (globals.to_comments == true) {
       } else if (globals.to_comments == false) {
         pishnahad_mojood();
       }
     } else {
       if (globals.to_cart == false) {
-        add_to_cart(
-            product.name,
-            product.amount,
-            product.text,
-            product.img,
-            product.id.toString(),
-            "1",
-            old_num,
-            product.img2,
-            product.img3,
-            product.img4);
+        add_to_cart(product.name, product.amount, product.text, product.img,
+            product.id.toString(), "1", old_num);
       } else if (globals.to_cart == true) {
         Navigator.pushAndRemoveUntil(
           context,
@@ -273,7 +259,7 @@ class _Page__DiscriptionState extends State<Page__Discription> {
     print("در حال set_button هستم.");
     print(globals.to_cart);
     print(globals.to_comments);
-    if (product.num == "0") {
+    if (product.num != "0") {
       if (globals.to_comments == true) {
         button_text = "از پیشنهاد شما متشکریم";
         button_color = Colors.green;
@@ -312,7 +298,7 @@ class _Page__DiscriptionState extends State<Page__Discription> {
                 if (i["color"] == value.toString()) {
                   for (var j in i["size"]) {
                     setState(() {
-                      if (j['num'] == "0") {
+                      if (j['num'] != "0") {
                       } else {
                         sizes.add(j["size"]);
                       }
@@ -373,7 +359,7 @@ class _Page__DiscriptionState extends State<Page__Discription> {
       product.img4,
     ];
     var kala_amount = product.amount;
-    if (product.num == "0") {
+    if (product.num != "0") {
       kala_amount = "ناموجود";
     }
     var all_num = 0;
@@ -413,19 +399,19 @@ class _Page__DiscriptionState extends State<Page__Discription> {
           padding: EdgeInsets.only(bottom: 2.0, left: 25, right: 25),
           child: GestureDetector(
             onTap: () {
-              button_on_tap();
+              _launchURL("https://eitaa.com/" + product.user);
             },
             child: Container(
               width: MediaQuery.of(context).size.width - 50,
               height: 50,
               child: Container(
                 decoration: BoxDecoration(
-                    color: button_color,
+                    color: Colors.green,
                     borderRadius: BorderRadius.all(Radius.circular(15))),
                 height: 48,
                 child: Center(
                   child: Text(
-                    button_text,
+                    "انتقال به آیدی فروشنده در ایتا",
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ),
@@ -551,78 +537,57 @@ class _Page__DiscriptionState extends State<Page__Discription> {
             ],
           ),
           Container(height: 1.0, width: 130.0, color: Colors.black38),
-          Padding(
-            padding: const EdgeInsets.only(top: 5, bottom: 5),
-            child: Container(
-              height: 50,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 5, right: 5),
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    reverse: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: colors_values.length,
-                    itemBuilder: (context, index) {
-                      var all_num_this = 0;
-                      print(product.color_size['result'][index]['color']);
-                      for (var i in product.color_size["result"][index]
-                          ["size"]) {
-                        all_num_this += int.parse(i["num"]);
-                        all_num += int.parse(i["num"]);
-                      }
-                      if (all_num_this == 0) {
-                        if (all_num == 0) {}
-                      } else if (product.color_size['result'][index]['color'] !=
-                          'بدون رنگ') {
-                        return generateItem(context, index, selected);
-                      }
-                    },
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Container(height: 1.0, width: 130.0, color: Colors.black38),
-          Padding(
-            padding: const EdgeInsets.only(top: 5, bottom: 5),
-            child: Container(
-              height: 50,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 5, right: 5),
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    reverse: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: sizes.length,
-                    itemBuilder: (context, index) {
-                      print(index);
-                      for (var i in product.color_size["result"]) {
-                        if (i["size"][index]["num"] == "0") {
-                        } else if (i["size"][index]["size"] == "بدون سایز") {
-                        } else {
-                          if (index == sizes.length) {
-                          } else {
-                            return generateItemSize(context, index, selected);
-                          }
-                        }
-                      }
-                    },
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Container(height: 1.0, width: 130.0, color: Colors.black38),
           Center(
             child: Text(
               kala_amount,
               style: TextStyle(color: Colors.red, fontSize: 21),
             ),
           ),
+          SizedBox(
+            height: 25,
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 40, right: 40),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    Text(
+                      "شهر:",
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                    Text(
+                      product.city,
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(fontSize: 18, color: Colors.red),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text(
+                      "شماره تلفن فروشنده:",
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    Text(
+                      product.phone,
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 25,
+          ),
+          Container(height: 1.0, width: 130.0, color: Colors.black38),
           SizedBox(
             height: 25,
           ),
@@ -907,3 +872,7 @@ class _Page__DiscriptionState extends State<Page__Discription> {
 //     }
 //   }
 // }
+_launchURL(url) async {
+  var this_url = url;
+  await launch(url);
+}

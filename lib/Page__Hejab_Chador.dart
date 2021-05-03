@@ -36,7 +36,10 @@ class _Page__Hejab_ChadorState extends State<Page__Hejab_Chador> {
             i['color_size'],
             i['img2'],
             i['img3'],
-            i['img4']);
+            i['img4'],
+            i['user'],
+            i['phone'],
+            i['city']);
         _items.add(item);
         globals.items = _items;
       }
@@ -53,11 +56,23 @@ class _Page__Hejab_ChadorState extends State<Page__Hejab_Chador> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "سرای مریم",
-          style: TextStyle(color: Colors.black, fontFamily: 'Vazir'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Image.network(
+              "http://193.176.243.61/media/photo_2021-04-23_01-16-09.jpg",
+              width: 70,
+            ),
+            Text(
+              "سرای مریم",
+              style: TextStyle(color: Colors.black, fontFamily: 'Vazir'),
+            ),
+            Image.network(
+              "http://193.176.243.61/media/photo_2021-04-23_01-16-14.jpg",
+              width: 70,
+            ),
+          ],
         ),
-        centerTitle: true,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,

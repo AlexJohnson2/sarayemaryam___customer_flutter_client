@@ -36,7 +36,10 @@ class _Page__Pooshak_mardaneState extends State<Page__Pooshak_mardane> {
             i['color_size'],
             i['img2'],
             i['img3'],
-            i['img4']);
+            i['img4'],
+            i['user'],
+            i['phone'],
+            i['city']);
         print("this is color_size: ");
         print(i['color_size']);
         _items.add(item);
@@ -55,11 +58,23 @@ class _Page__Pooshak_mardaneState extends State<Page__Pooshak_mardane> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "سرای مریم",
-          style: TextStyle(color: Colors.black, fontFamily: 'Vazir'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Image.network(
+              "http://193.176.243.61/media/photo_2021-04-23_01-16-09.jpg",
+              width: 70,
+            ),
+            Text(
+              "سرای مریم",
+              style: TextStyle(color: Colors.black, fontFamily: 'Vazir'),
+            ),
+            Image.network(
+              "http://193.176.243.61/media/photo_2021-04-23_01-16-14.jpg",
+              width: 70,
+            ),
+          ],
         ),
-        centerTitle: true,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,

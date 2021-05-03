@@ -83,11 +83,23 @@ class _FinishedByePageState extends State<FinishedByePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-            "ادامه خرید",
-            style: TextStyle(color: Colors.black, fontFamily: 'Vazir'),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Image.network(
+                "http://193.176.243.61/media/photo_2021-04-23_01-16-09.jpg",
+                width: 70,
+              ),
+              Text(
+                "ادامه خرید",
+                style: TextStyle(color: Colors.black, fontFamily: 'Vazir'),
+              ),
+              Image.network(
+                "http://193.176.243.61/media/photo_2021-04-23_01-16-14.jpg",
+                width: 70,
+              ),
+            ],
           ),
-          centerTitle: true,
           backgroundColor: Colors.white,
           elevation: 2,
           leading: IconButton(

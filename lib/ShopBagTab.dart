@@ -70,166 +70,205 @@ class _ShopBagTabState extends State<ShopBagTab> {
     if (sharedPreferences.getString("address") == "") {
       Error(context, "لطفا آدرس خود را در بخش تنظیمات حساب کاربری کامل کنید.",
           "باشه");
-    }
-    if (sharedPreferences.getString("post_code") == "") {
+    } else if (sharedPreferences.getString("post_code") == "") {
       Error(context,
           "لطفا کد پستی خود را در بخش تنظیمات حساب کاربری کامل کنید.", "باشه");
-    }
+    } else {
+      print("ok");
+      print("ok");
+      print("ok");
 
-    print("ok");
-    print("ok");
-    print("ok");
+      // var Ersal;
+      var Ersal_amount;
+      // var Massenger;
 
-    // var Ersal;
-    var Ersal_amount;
-    // var Massenger;
+      print("ok");
 
-    print("ok");
+      // if (globals.Ersal.toString() == "SendKalaValues.tahvil_in_sarayemaryam") {
+      //   Ersal = "تحویل حضوری از سرای مریم";
+      //   Ersal_amount = "به عهده مشتری";
+      // } else if (globals.Ersal.toString() ==
+      //     "SendKalaValues.ersal_be_mojtama_asatid") {
+      //   Ersal = "ارسال به مجتمع اساتید";
+      //   Ersal_amount = "رایگان";
+      // } else if (globals.Ersal.toString() ==
+      //     "SendKalaValues.ersal_be_dakhel_shahr_qom") {
+      //   Ersal = "ارسال به داخل شهر قم";
+      //   Ersal_amount = "3000 تومان";
+      // } else if (globals.Ersal.toString() ==
+      //     "SendKalaValues.ersal_be_pardisan_qom") {
+      //   Ersal = "ارسال به پردیسان قم";
+      //   Ersal_amount = "5000 تومان";
+      // } else if (globals.Ersal.toString() ==
+      //     "SendKalaValues.ersal_be_shahrestans") {
+      //   Ersal = "ارسال به شهرستان ها";
+      //   Ersal_amount = "10000 تومان";
+      // }
 
-    // if (globals.Ersal.toString() == "SendKalaValues.tahvil_in_sarayemaryam") {
-    //   Ersal = "تحویل حضوری از سرای مریم";
-    //   Ersal_amount = "به عهده مشتری";
-    // } else if (globals.Ersal.toString() ==
-    //     "SendKalaValues.ersal_be_mojtama_asatid") {
-    //   Ersal = "ارسال به مجتمع اساتید";
-    //   Ersal_amount = "رایگان";
-    // } else if (globals.Ersal.toString() ==
-    //     "SendKalaValues.ersal_be_dakhel_shahr_qom") {
-    //   Ersal = "ارسال به داخل شهر قم";
-    //   Ersal_amount = "3000 تومان";
-    // } else if (globals.Ersal.toString() ==
-    //     "SendKalaValues.ersal_be_pardisan_qom") {
-    //   Ersal = "ارسال به پردیسان قم";
-    //   Ersal_amount = "5000 تومان";
-    // } else if (globals.Ersal.toString() ==
-    //     "SendKalaValues.ersal_be_shahrestans") {
-    //   Ersal = "ارسال به شهرستان ها";
-    //   Ersal_amount = "10000 تومان";
-    // }
+      print("ok");
 
-    print("ok");
+      // if (_Ersal.toString() == "SendKalaValues.eitaa") {
+      //   Massenger = "ایتا";
+      // } else if (_Ersal.toString() == "SendKalaValues.whatsapp") {
+      //   Massenger = "واتساپ";
+      // } else if (_Ersal.toString() == "SendKalaValues.soroush") {
+      //   Massenger = "سروش";
+      // }
+      //
+      var text;
 
-    // if (_Ersal.toString() == "SendKalaValues.eitaa") {
-    //   Massenger = "ایتا";
-    // } else if (_Ersal.toString() == "SendKalaValues.whatsapp") {
-    //   Massenger = "واتساپ";
-    // } else if (_Ersal.toString() == "SendKalaValues.soroush") {
-    //   Massenger = "سروش";
-    // }
-    //
-    var text;
-
-    text = "سبد خرید : " +
-        "\n\n آیدی : " +
-        sharedPreferences.getString("eitaa_id") +
-        "\n\nشماره : " +
-        sharedPreferences.getString("phonenumber") +
-        "\n\nآدرس : " +
-        sharedPreferences.getString("address") +
-        "\n\nکد پستی : " +
-        sharedPreferences.getString("post_code"); //+
-    "\n\nنحوه دریافت کالا :" +
-        globals.Ersal +
-        "\n\nهزینه ارسال کالا :" +
-        globals.all_amount.toString();
-    print(text);
-    // "\n\nمکان ارتباط با مسئول فروش : " +
-    // Massenger;
-    // var url = Uri.http(globals.django_url, globals.send_message_url);
-    // Response response = await post(url, body: {'text': text});
-
-    print("ok");
-
-    var url = Uri.http(globals.django_url, globals.get_all_cart_url);
-    Response response = await post(url,
-        body: {"user": sharedPreferences.getString("username")});
-
-    print("ok");
-
-    // var text = "";
-    var all_amount = 0;
-
-    List<ShopBagList> _items = [];
-    var itemsjson = json.decode(response.body)['result'];
-    for (var i in itemsjson) {
-      var item = ShopBagList(
-          int.parse(i['id']),
-          i["name"],
-          i["text"],
-          i["amount"],
-          i["img"],
-          i["num"],
-          i["number"],
-          i['old_num'],
-          i['group'],
-          i['color'],
-          i['size'],
-          i['img2'],
-          i['img3'],
-          i['img4']);
-      _items.add(item);
-      globals.shopbagitems = _items;
-    }
-
-    print("ok");
-
-    for (var j in _items) {
-      all_amount += int.parse(j.amount) * int.parse(j.num);
-      text = text +
-          "\n\n---------------------" +
-          "\n\n" +
-          "\n\nنام محصول : " +
-          j.name +
-          "\n\n  قیمت آن : " +
-          j.amount +
-          "\n\n و تعداد آن:  " +
-          j.num +
-          "\n\n و رنگ آن : " +
-          j.color +
-          "\n\n و سایز آن : " +
-          j.size;
+      text = "سبد خرید : " +
+          "\n\n آیدی : " +
+          sharedPreferences.getString("eitaa_id") +
+          "\n\nشماره : " +
+          sharedPreferences.getString("phonenumber") +
+          "\n\nآدرس : " +
+          sharedPreferences.getString("address") +
+          "\n\nکد پستی : " +
+          sharedPreferences.getString("post_code"); //+
+      "\n\nنحوه دریافت کالا :" +
+          globals.Ersal +
+          "\n\nهزینه ارسال کالا :" +
+          globals.all_amount.toString();
+      print(text);
+      // "\n\nمکان ارتباط با مسئول فروش : " +
+      // Massenger;
       // var url = Uri.http(globals.django_url, globals.send_message_url);
       // Response response = await post(url, body: {'text': text});
-      //
-      print("ok");
-
-      url = Uri.http("193.176.243.61:8200", "pay/get_authority");
-      response = await post(url, body: {
-        'amount': get_all_amount.toString(),
-        'description': text,
-        'mobile': sharedPreferences.getString("phonenumber")
-      });
-      print(response.body);
-      print(jsonDecode(response.body)['authority']);
-      globals.authority = jsonDecode(response.body)['authority'];
-
-      // var remove_num_url = "kala/" + j.group.toString() + "/remove_num";
-      // print(remove_num_url);
-
-      // url = Uri.http(globals.django_url, remove_num_url);
-      // response = await post(url, body: {
-      //   'name': j.name,
-      //   'id': j.id.toString(),
-      //   'num': j.num,
-      //   'color': j.color,
-      //   'size': j.size
-      // });
 
       print("ok");
 
-      url = Uri.http(globals.django_url, globals.delete_from_cart_url);
-      response = await post(url, body: {
-        'user': sharedPreferences.getString("username"),
-        'name': j.name,
-        'amount': j.amount,
-        'img': j.img
-      });
-
-      setState(() {
-        getItems();
-      });
+      var url = Uri.http(globals.django_url, globals.get_all_cart_url);
+      Response response = await post(url,
+          body: {"user": sharedPreferences.getString("username")});
 
       print("ok");
+
+      // var text = "";
+      var all_amount = 0;
+
+      List<ShopBagList> _items = [];
+      var itemsjson = json.decode(response.body)['result'];
+      for (var i in itemsjson) {
+        var item = ShopBagList(
+            int.parse(i['id']),
+            i["name"],
+            i["text"],
+            i["amount"],
+            i["img"],
+            i["num"],
+            i["number"],
+            i['old_num'],
+            i['group'],
+            i['color'],
+            i['size'],
+            i['img2'],
+            i['img3'],
+            i['img4']);
+        _items.add(item);
+        globals.shopbagitems = _items;
+      }
+
+      print("ok");
+
+      List kalas = [];
+
+      for (var j in _items) {
+        kalas.add({
+          'id': j.id,
+          'name': j.name,
+          'amount': j.amount,
+          'img': j.img,
+          'img2': j.img2,
+          'img3': j.img3,
+          'img4': j.img4,
+          'text': j.text,
+          'num': j.num,
+          'group': j.group,
+          'color': j.color,
+          'this_id': j.id.toString(),
+          'size': j.size,
+        });
+
+        // 'name': j.name,
+        // 'amount': j.amount,
+        // 'img': j.img,
+        // 'text': j.text,
+        // 'num': j.num,
+        // 'group': j.group,
+        // 'color': j.color,
+        // 'this_id': j.id.toString(),
+        // 'size': j.size,
+        //
+        all_amount += int.parse(j.amount) * int.parse(j.num);
+        text = text +
+            "\n\n---------------------" +
+            "\n\n" +
+            "\n\nنام محصول : " +
+            j.name +
+            "\n\n  قیمت آن : " +
+            j.amount +
+            "\n\n و تعداد آن:  " +
+            j.num +
+            "\n\n و رنگ آن : " +
+            j.color +
+            "\n\n و سایز آن : " +
+            j.size;
+        // var url = Uri.http(globals.django_url, globals.send_message_url);
+        // Response response = await post(url, body: {'text': text});
+        //
+        print("ok");
+
+        url = Uri.http("193.176.243.61:8200", "pay/get_authority");
+        response = await post(url, body: {
+          'amount': get_all_amount.toString(),
+          'description': text,
+          'mobile': sharedPreferences.getString("phonenumber")
+        });
+        print(response.body);
+        print(jsonDecode(response.body)['authority']);
+        globals.authority = jsonDecode(response.body)['authority'];
+
+        // var remove_num_url = "kala/" + j.group.toString() + "/remove_num";
+        // print(remove_num_url);
+
+        // url = Uri.http(globals.django_url, remove_num_url);
+        // response = await post(url, body: {
+        //   'name': j.name,
+        //   'id': j.id.toString(),
+        //   'num': j.num,
+        //   'color': j.color,
+        //   'size': j.size
+        // });
+
+        print("ok");
+
+        url = Uri.http(globals.django_url, globals.delete_from_cart_url);
+        response = await post(url, body: {
+          'user': sharedPreferences.getString("username"),
+          'name': j.name,
+          'amount': j.amount,
+          'img': j.img
+        });
+
+        setState(() {
+          getItems();
+        });
+
+        print("ok");
+
+        print("ok");
+
+        print("response.body");
+
+        print(response.body);
+        print("response.body");
+        //.substring(4600, response.body.length
+        //
+      }
+
+      print("this is kalaaaaaas : ");
+      print(kalas);
 
       var url2 = Uri.http(globals.django_url, "/tarikhche_kharid/add");
       print("url2");
@@ -237,49 +276,42 @@ class _ShopBagTabState extends State<ShopBagTab> {
       print("url2");
       response = await post(url2, body: {
         'username': sharedPreferences.getString("username"),
-        'name': j.name,
-        'amount': j.amount,
-        'img': j.img,
-        'text': j.text,
-        'num': j.num,
-        'group': j.group,
-        'color': j.color,
-        'this_id': j.id.toString(),
-        'size': j.size,
+        // 'name': j.name,
+        // 'amount': j.amount,
+        // 'img': j.img,
+        // 'text': j.text,
+        // 'num': j.num,
+        // 'group': j.group,
+        // 'color': j.color,
+        // 'this_id': j.id.toString(),
+        // 'size': j.size,
+        'kalas': jsonEncode({'result': kalas}),
         'authority': globals.authority,
         'pick_kala': globals.Ersal,
         'status': 'NOK'
       });
 
-      print("ok");
+      // text = text + "\n\n\n\n---------------------\nقیمت کل : $all_amount";
 
-      print("response.body");
+      // url = Uri.http(globals.django_url, globals.send_message_url);
+      // response = await post(url, body: {'text': text});
 
-      print(response.body);
-      print("response.body");
-      //.substring(4600, response.body.length
-      //
+      // Navigator.of(context).pushReplacement(
+      //     MaterialPageRoute(builder: (context) => ShopBagTab()));
+
+      // if (Massenger == "ایتا") {
+      //   _launchURL("https://eitaa.com/salambarf");
+      // } else if (Massenger == "واتساپ") {
+      //   _launchURL("https://wa.me/+989194517132");
+      // }
+      setState(() {
+        globals.all_amount = 0;
+        globals.Ersal = "";
+      });
+
+      _launchURL("https://www.zarinpal.com/pg/StartPay/" +
+          globals.authority); ////////////////////////////////////
     }
-
-    // text = text + "\n\n\n\n---------------------\nقیمت کل : $all_amount";
-
-    // url = Uri.http(globals.django_url, globals.send_message_url);
-    // response = await post(url, body: {'text': text});
-
-    // Navigator.of(context).pushReplacement(
-    //     MaterialPageRoute(builder: (context) => ShopBagTab()));
-
-    // if (Massenger == "ایتا") {
-    //   _launchURL("https://eitaa.com/salambarf");
-    // } else if (Massenger == "واتساپ") {
-    //   _launchURL("https://wa.me/+989194517132");
-    // }
-    setState(() {
-      globals.all_amount = 0;
-      globals.Ersal = "";
-    });
-
-    _launchURL("https://www.zarinpal.com/pg/StartPay/" + globals.authority);
   }
 
   Future<void> _showInfo(context) async {
@@ -575,32 +607,33 @@ class _ShopBagTabState extends State<ShopBagTab> {
       for (var i in itemsjson) {
         var item = TarikhcheKharidList(
             int.parse(i['id']),
-            i["name"],
-            i["text"],
-            i["amount"],
-            i["img"],
-            i["num"],
+            // i["name"],
+            // i["text"],
+            // i["amount"],
+            // i["img"],
+            // i["num"],
             i["number"],
-            i['old_num'],
-            i['group'],
+            // i['old_num'],
+            // i['group'],
             i['eitaa_id'],
             i['address'],
             i['post_code'],
-            i['color'],
-            i['size'],
+            // i['color'],
+            // i['size'],
             i['authority'],
             i['status'],
             i['date'],
             i['time'],
-            i['img2'],
-            i['img3'],
-            i['img4'],
+            // i['img2'],
+            // i['img3'],
+            // i['img4'],
             i['level_sabt'],
             i['level_amadeh_sazi'],
-            i['level_tahvil_post']);
+            i['level_tahvil_post'],
+            i['kalas']);
         _tarikhche_items.add(item);
-        globals.all_amount_tarikhche +=
-            int.parse(i['amount']) * int.parse(i['num']);
+        // globals.all_amount_tarikhche +=
+        //     int.parse(i['amount']) * int.parse(i['num']);
       }
     });
   }
@@ -665,7 +698,10 @@ class _ShopBagTabState extends State<ShopBagTab> {
                 {},
                 product.img2,
                 product.img3,
-                product.img4);
+                product.img4,
+                null,
+                null,
+                null);
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => Page__DiscriptionShopBagTab(kala, [])));
           },
@@ -951,7 +987,8 @@ class _ShopBagTabState extends State<ShopBagTab> {
     );
   }
 
-  Card generateItemTarikhcheKharid(TarikhcheKharidList product, context) {
+  Card generateItemTarikhcheKharid(
+      TarikhcheKharidList product, context, index) {
     PersianDate date = PersianDate.pDate();
     Widget status = Text(
       "وضعیت : " + "",
@@ -989,6 +1026,74 @@ class _ShopBagTabState extends State<ShopBagTab> {
       level_tahvil_post_color = Colors.green;
       level_tahvil_post_color_text = Colors.white;
     }
+
+    var all_amount = 0;
+
+    List<Widget> kala_list = [];
+    int count = 0;
+    for (var i in product.kalas['result']) {
+      all_amount += int.parse(i['amount']) * int.parse(i['num']);
+      kala_list.add(
+        Container(
+          color: Colors.black,
+          height: 1,
+        ),
+      );
+      kala_list.add(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          textDirection: TextDirection.rtl,
+          children: [
+            Image.network(
+              i['img'],
+              width: 100,
+            ),
+            Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(right: 10),
+                  child: Text(
+                    i['name'],
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Text(
+                    i['amount'],
+                    style: TextStyle(fontSize: 20, color: Colors.red),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Text(
+                    "رنگ : " + i['color'],
+                    style: TextStyle(fontSize: 17, color: Colors.black),
+                    textDirection: TextDirection.rtl,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Text(
+                    "سایز : " + i['size'],
+                    style: TextStyle(fontSize: 17, color: Colors.black),
+                    textDirection: TextDirection.rtl,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(right: 20),
+                  child: Text(
+                    "تعداد : " + i['num'],
+                    style: TextStyle(fontSize: 20),
+                    textDirection: TextDirection.rtl,
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      );
+    }
     return Card(
       clipBehavior: Clip.antiAliasWithSaveLayer,
       margin: EdgeInsets.all(10),
@@ -996,24 +1101,27 @@ class _ShopBagTabState extends State<ShopBagTab> {
           borderRadius: BorderRadius.all(Radius.circular(15))),
       elevation: 5,
       child: Container(
-        height: 530,
+        height: 545.0 + product.kalas['result'].length * 160,
         child: InkWell(
           onTap: () {
             //var item_ = globals.pooshak_mardane_getall_res['result'][id]
 
             var kala = Product(
                 product.id,
-                product.name,
-                product.text,
-                product.amount,
-                product.img,
-                product.num,
+                product.kalas['result'][index]['name'],
+                product.kalas['result'][index]['text'],
+                product.kalas['result'][index]['amount'],
+                product.kalas['result'][index]['img'],
+                product.kalas['result'][index]['num'],
                 "product.number",
-                product.group,
+                product.kalas['result'][index]['group'],
                 {},
-                product.img2,
-                product.img3,
-                product.img4);
+                product.kalas['result'][index]['img2'],
+                product.kalas['result'][index]['img3'],
+                product.kalas['result'][index]['img4'],
+                null,
+                null,
+                null);
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => Page__DiscriptionShopBagTab(kala, [])));
           },
@@ -1027,53 +1135,44 @@ class _ShopBagTabState extends State<ShopBagTab> {
                     // mainAxisAlignment: MainAxisAlignment.start,
                     textDirection: TextDirection.rtl,
                     children: [
-                      Container(
-                        child: Image.network(
-                          product.img,
-                          width: 100,
-                        ),
-                      ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(right: 10),
+                            padding: EdgeInsets.only(right: 20),
                             child: Text(
-                              product.name,
+                              "شماره سفارش : ",
                               style: TextStyle(fontSize: 20),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 20),
-                            child: Text(
-                              product.amount,
-                              style: TextStyle(fontSize: 20, color: Colors.red),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 20),
-                            child: Text(
-                              "رنگ : " + product.color,
-                              style:
-                                  TextStyle(fontSize: 17, color: Colors.black),
-                              textDirection: TextDirection.rtl,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 20),
-                            child: Text(
-                              "سایز : " + product.size,
-                              style:
-                                  TextStyle(fontSize: 17, color: Colors.black),
                               textDirection: TextDirection.rtl,
                             ),
                           ),
                           Padding(
                             padding: EdgeInsets.only(right: 20),
                             child: Text(
-                              "تعداد : " + product.num,
-                              style: TextStyle(fontSize: 20),
+                              product.id.toString(),
+                              style: TextStyle(fontSize: 20, color: Colors.red),
+                              textDirection: TextDirection.rtl,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width - 130,
+                              child: Text(
+                                "کد پیگیری پرداخت در صورت موفق بودن: ",
+                                style: TextStyle(fontSize: 20),
+                                maxLines: null,
+                                textDirection: TextDirection.rtl,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(right: 20),
+                            child: Text(
+                              int.parse(product.authority.substring(1))
+                                  .toString(),
+                              style: TextStyle(fontSize: 17, color: Colors.red),
                               textDirection: TextDirection.rtl,
                             ),
                           ),
@@ -1114,13 +1213,31 @@ class _ShopBagTabState extends State<ShopBagTab> {
                           ),
                           Padding(
                               padding: EdgeInsets.only(right: 20),
-                              child: status)
+                              child: status),
+                          Padding(
+                            padding: EdgeInsets.only(right: 20),
+                            child: Text(
+                              "مبلغ کل : " + all_amount.toString(),
+                              style: TextStyle(fontSize: 20),
+                              textDirection: TextDirection.rtl,
+                            ),
+                          ),
                         ],
                       ),
                       SizedBox(
                         width: 20,
                       ),
                     ]),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 8,
+                    right: 8,
+                    top: 3,
+                  ),
+                  child: Column(
+                    children: kala_list,
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.only(left: 8, right: 8, top: 3),
                   child: Column(
@@ -1264,14 +1381,26 @@ class _ShopBagTabState extends State<ShopBagTab> {
           });
           return Scaffold(
             appBar: AppBar(
-              title: Text(
-                "سرای مریم",
-                style: TextStyle(color: Colors.black, fontFamily: 'Vazir'),
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Image.network(
+                    "http://193.176.243.61/media/photo_2021-04-23_01-16-09.jpg",
+                    width: 70,
+                  ),
+                  Text(
+                    "سرای مریم",
+                    style: TextStyle(color: Colors.black, fontFamily: 'Vazir'),
+                  ),
+                  Image.network(
+                    "http://193.176.243.61/media/photo_2021-04-23_01-16-14.jpg",
+                    width: 70,
+                  ),
+                ],
               ),
               centerTitle: true,
               backgroundColor: Colors.white,
               elevation: 2,
-              leading: Icon(Icons.add),
               bottom: TabBar(
                 labelColor: Colors.black,
                 tabs: tabs,
@@ -1288,9 +1417,11 @@ class _ShopBagTabState extends State<ShopBagTab> {
                         shrinkWrap: true,
                         itemCount: _tarikhche_items.length,
                         itemBuilder: (context, index) {
+                          int count = 0;
                           return generateItemTarikhcheKharid(
                               _tarikhche_items.reversed.toList()[index],
-                              context);
+                              context,
+                              index);
                         },
                       ),
                     ),

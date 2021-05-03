@@ -127,11 +127,23 @@ class _AccountEditState extends State<AccountEdit> {
     // var post_codecontroller = TextEditingController(text: sharedPreferences.getString('post_code'));
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-            "ویرایش حساب کاربری",
-            style: TextStyle(color: Colors.black, fontFamily: 'Vazir'),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Image.network(
+                "http://193.176.243.61/media/photo_2021-04-23_01-16-09.jpg",
+                width: 70,
+              ),
+              Text(
+                "ویرایش حساب کاربری",
+                style: TextStyle(color: Colors.black, fontFamily: 'Vazir'),
+              ),
+              Image.network(
+                "http://193.176.243.61/media/photo_2021-04-23_01-16-14.jpg",
+                width: 70,
+              ),
+            ],
           ),
-          centerTitle: true,
           backgroundColor: Colors.white,
           elevation: 2,
           leading: IconButton(

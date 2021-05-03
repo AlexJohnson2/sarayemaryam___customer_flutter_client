@@ -5,6 +5,8 @@ import 'package:http/http.dart';
 import 'globals.dart' as globals;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'SigninPage.dart';
+import 'package:flutter/services.dart';
+
 import 'ConfirmPage.dart';
 
 void SignupError(context, text, button_text) {
@@ -95,6 +97,11 @@ class _SignupPageState extends State<SignupPage> {
       SignupError(context, "لطفا شماره تلفن را وارد کنید.", "باشه");
     } else if (eitaa_idcontroller.text == "") {
       SignupError(context, "لطفا آیدی ایتا را وارد کنید.", "باشه");
+    } else if (phonenumbercontroller.text.length != 11) {
+      SignupError(
+          context,
+          "لطفا شماره تلفن را به صورت صحیح و بدون فاصله در انتهای شماره وارد کنید.",
+          "باشه");
     } else {
       globals.username = username;
       globals.password = password;
@@ -125,9 +132,22 @@ class _SignupPageState extends State<SignupPage> {
     State();
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-            "ثبت نام",
-            style: TextStyle(color: Colors.black, fontFamily: 'Vazir'),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Image.network(
+                "http://193.176.243.61/media/photo_2021-04-23_01-16-09.jpg",
+                width: 70,
+              ),
+              Text(
+                "ثبت نام",
+                style: TextStyle(color: Colors.black, fontFamily: 'Vazir'),
+              ),
+              Image.network(
+                "http://193.176.243.61/media/photo_2021-04-23_01-16-14.jpg",
+                width: 70,
+              ),
+            ],
           ),
           centerTitle: true,
           backgroundColor: Colors.white,
@@ -215,6 +235,9 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                           Material(
                             child: TextField(
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(11),
+                              ],
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: " * تلفن همراه",
